@@ -1,8 +1,22 @@
 #root {
+  --sbuxgreen: #016241;
+  --sbuxbrightgreen: #007549;
+  --sbuxdarkgreen: #1E3932;
+  --sbuxlightgreen:   #D4E9E2;
+  --sbuxcream: #F2F0EB;
+
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+}
+
+body {
+  color: white;
+  background-color: var(--sbuxgreen);
+}
+
+#app {
 }
 
 .logo {
@@ -39,4 +53,109 @@
 
 .read-the-docs {
   color: #888;
+}
+
+
+button {
+  margin: .5em;
+}
+
+#mainContainer {
+  width: 95%;
+  height: 95%;
+  background-color: white;
+  border-radius: 10px;
+  justify-self: center;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#innerContainer{
+  width: 95%;
+  height: 95%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#title {
+  text-align: center;
+  font-size: 4em;
+}
+
+.questioneer {
+  display: flex;
+  justify-content: center;
+  padding: 1em;
+  align-items: center;
+  flex-direction: column;
+}
+
+#splashScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 55, 0, 0.9);
+  color: white;
+  font-size: 3em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.hide {
+  display: none;
+}
+
+.questioneer {
+  opacity: 1;
+  transition: opacity 0.5s;
+}
+
+.even {
+  background-color: #f2f2f2;
+}
+
+.odd {
+  background-color: #ffffff;
+}
+
+.splash-screen {
+  position: fixed;
+  backdrop-filter: blur(10px);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  transition: opacity 1s;
+  z-index: 1000;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table th, table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
 }
