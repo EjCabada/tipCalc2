@@ -26,9 +26,13 @@ body {
 
 
 button {
-  margin: .5em;
+  border-style: none;
+  padding: .8em;
+  margin: 1em;
+  border-radius: 7px;
   background-color: #a7955f;
   box-shadow: rgba(82, 82, 91, 0.397) 0px 7px 29px 0px;
+  color: white;
 }
 
 button:active {
