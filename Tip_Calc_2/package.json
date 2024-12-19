@@ -1,9 +1,9 @@
 {
-  "name": "tip-calc-2",
+  "name": "tip-calc",
+  "homepage": "https://ejcabada.github.io/tipCalc/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://ejcabada.github.io/tipCalc2/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
