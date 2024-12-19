@@ -1,92 +1,119 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 
-function Hours({ onDone }) {
-  const [employee, setEmployees] = useState(1);
-  const [workedHours, setWorkedHours] = useState(0);
-  const [employeeData, setEmployeeData] = useState([]);
-  const [totalHours, setTotalHours] = useState(0);
+function Hours({ onDone, onRestart, initialData = [], initialTotalHours = 0 }) {
+  const [employee, setEmployees] = useState(initialData.length + 1);
+  const [workedHours, setWorkedHours] = useState(null); // Start with null to make the input empty
+  const [employeeData, setEmployeeData] = useState(initialData);
+  const [totalHours, setTotalHours] = useState(initialTotalHours);
+  const [fade, setFade] = useState(true);
 
-  // Load data from localStorage if it exists
+  // Load data from localStorage on mount
   useEffect(() => {
-    const storedEmployeeData = localStorage.getItem('employeeData');
-    const storedTotalHours = localStorage.getItem('totalHours');
-    const storedEmployee = localStorage.getItem('employee');
+    const savedData = JSON.parse(localStorage.getItem('employeeData')) || [];
+    const savedTotalHours = JSON.parse(localStorage.getItem('totalHours')) || 0;
 
-    if (storedEmployeeData) {
-      setEmployeeData(JSON.parse(storedEmployeeData));
-    }
-    if (storedTotalHours) {
-      setTotalHours(Number(storedTotalHours));
-    }
-    if (storedEmployee) {
-      setEmployees(Number(storedEmployee));
+    if (savedData.length > 0) {
+      setEmployeeData(savedData);
+      setEmployees(savedData.length + 1);
+      setTotalHours(savedTotalHours);
     }
   }, []);
 
-  // Save data to localStorage
+  // Save data to localStorage whenever employeeData or totalHours changes
   useEffect(() => {
     localStorage.setItem('employeeData', JSON.stringify(employeeData));
-    localStorage.setItem('totalHours', totalHours);
-    localStorage.setItem('employee', employee);
-  }, [employeeData, totalHours, employee]);
+    localStorage.setItem('totalHours', JSON.stringify(totalHours));
+  }, [employeeData, totalHours]);
 
   const handleHoursChange = (event) => {
-    setWorkedHours(Number(event.target.value));
+    setWorkedHours(Number(event.target.value)); // Set the worked hours when input changes
+  };
+
+  const transitionEmployee = (callback) => {
+    setFade(false);
+    setTimeout(() => {
+      callback();
+      setFade(true);
+    }, 500); // Matches the fade duration
   };
 
   const nextEmployee = () => {
-    // Save current employee data before moving to next employee
-    setEmployeeData((prevData) => [
-      ...prevData,
-      { employeeNumber: employee, hoursWorked: workedHours, roundedHours: null },
-    ]);
-    setTotalHours((prevTotal) => prevTotal + workedHours);
-    setEmployees((prevEmployee) => prevEmployee + 1);
-    setWorkedHours(0);
+    transitionEmployee(() => {
+      const updatedData = [...employeeData];
+      if (employee > employeeData.length) {
+        updatedData.push({
+          employeeNumber: employee,
+          hoursWorked: workedHours,
+          roundedHours: null,
+        });
+      } else {
+        const difference = workedHours - employeeData[employee - 1].hoursWorked;
+        updatedData[employee - 1].hoursWorked = workedHours;
+        setTotalHours(totalHours + difference);
+      }
+      setEmployeeData(updatedData);
+      if (employee > employeeData.length) {
+        setTotalHours(totalHours + workedHours);
+      }
+      setEmployees(employee + 1);
+      setWorkedHours(null); // Reset workedHours after moving to next employee
+    });
   };
 
   const prevEmployee = () => {
-    if (employee > 1) {
-      setEmployees((prevEmployee) => prevEmployee - 1);
-      const removedEmployee = employeeData.pop();
-      setEmployeeData([...employeeData]);
-      setTotalHours((prevTotal) => prevTotal - removedEmployee.hoursWorked);
-      setWorkedHours(removedEmployee.hoursWorked);
-    }
+    transitionEmployee(() => {
+      if (employee > 1) {
+        const previousEmployee = employee - 1;
+        setEmployees(previousEmployee);
+        setWorkedHours(employeeData[previousEmployee - 1].hoursWorked || 0);
+      }
+    });
   };
 
   const handleDone = () => {
-    // Save the last employee's data
-    setEmployeeData((prevData) => [
-      ...prevData,
-      { employeeNumber: employee, hoursWorked: workedHours, roundedHours: null },
-    ]);
-    setTotalHours((prevTotal) => prevTotal + workedHours);
-    onDone(employeeData); // Pass employee data to App.jsx
+    const updatedData = [...employeeData];
+    if (employee > employeeData.length) {
+      updatedData.push({
+        employeeNumber: employee,
+        hoursWorked: workedHours,
+        roundedHours: null,
+      });
+    } else {
+      const difference = workedHours - employeeData[employee - 1].hoursWorked;
+      updatedData[employee - 1].hoursWorked = workedHours;
+      setTotalHours(totalHours + difference);
+    }
+    onDone(updatedData, totalHours + workedHours);
+  };
+
+  const handleReset = () => {
+    setEmployeeData([]);
+    setTotalHours(0);
+    setEmployees(1);
+    setWorkedHours(0);
+    localStorage.removeItem('employeeData');
+    localStorage.removeItem('totalHours');
+    onRestart(); // Notify parent to reset as well
   };
 
   return (
-    <div id="employeeVals">
+    <div id="employeeVals" className={`fade ${fade ? 'show' : ''}`}>
       <div id="employeeText">How many hours did employee {employee} work?</div>
       <input
         type="number"
         name="workedHours"
         id="hoursInput"
         min="0"
-        placeholder="0"
-        value={workedHours}
+        value={workedHours || ''} // Set to an empty string when workedHours is null
+        placeholder=''
         onChange={handleHoursChange}
       />
-
       <div className="buttonArea">
-        <button onClick={prevEmployee} id="prevEmployeeBtn">Back</button>
-        <button onClick={handleDone} id="done">Done</button>
+        <button onClick={prevEmployee} id="back">Back</button>
         <button onClick={nextEmployee} id="nextEmployeeBtn">Next</button>
-      </div>
-
-      <div>
-        workedHours = {workedHours}, totalHours = {totalHours}, employee = {employee}
+        <button onClick={handleDone} id="done">Done</button>
+        <button onClick={handleReset} id="reset">Restart</button>
       </div>
     </div>
   );

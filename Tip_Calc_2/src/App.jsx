@@ -5,31 +5,11 @@ import Rounding from './Rounding.jsx';
 import Results from './Results.jsx';
 
 function App() {
-  const [step, setStep] = useState(1);
-  const [employeeData, setEmployeeData] = useState([]);
-  const [totalHours, setTotalHours] = useState(0);
-  const [totalTips, setTotalTips] = useState(0);
-
-  // Load data from localStorage if it exists
-  useEffect(() => {
-    const storedStep = localStorage.getItem('step');
-    const storedEmployeeData = localStorage.getItem('employeeData');
-    const storedTotalHours = localStorage.getItem('totalHours');
-    const storedTotalTips = localStorage.getItem('totalTips');
-
-    if (storedStep) {
-      setStep(Number(storedStep));
-    }
-    if (storedEmployeeData) {
-      setEmployeeData(JSON.parse(storedEmployeeData));
-    }
-    if (storedTotalHours) {
-      setTotalHours(Number(storedTotalHours));
-    }
-    if (storedTotalTips) {
-      setTotalTips(Number(storedTotalTips));
-    }
-  }, []);
+  const [step, setStep] = useState(() => Number(localStorage.getItem('step')) || 1);
+  const [employeeData, setEmployeeData] = useState(() => JSON.parse(localStorage.getItem('employeeData')) || []);
+  const [totalHours, setTotalHours] = useState(() => Number(localStorage.getItem('totalHours')) || 0);
+  const [totalTips, setTotalTips] = useState(() => Number(localStorage.getItem('totalTips')) || 0);
+  const [fade, setFade] = useState(true); // Control fade animations
 
   // Save data to localStorage whenever relevant state changes
   useEffect(() => {
@@ -39,40 +19,51 @@ function App() {
     localStorage.setItem('totalTips', totalTips);
   }, [step, employeeData, totalHours, totalTips]);
 
-  // Handle the "Done" button in Hours.jsx
-  const handleDoneInHours = (data) => {
+  const triggerStepChange = (newStep) => {
+    setFade(false); // Start fade-out
+    setTimeout(() => {
+      setStep(newStep); // Change the step after fade-out is complete
+      setFade(true); // Start fade-in
+    }, 300); // Match this timeout to the fade-out duration in CSS
+  };
+
+  const handleDoneInHours = (data, hours) => {
     setEmployeeData(data);
-    setStep(2); // Move to rounding step
+    setTotalHours(hours);
+    triggerStepChange(2); // Smooth transition to Step 2
   };
 
-  // Handle the "Done" button in Rounding.jsx
-  const handleDoneInRounding = (tips) => {
-    setTotalTips(tips); // Set total tips
-    setStep(3); // Move to results step
+  const handleDoneInRounding = (data, tips) => {
+    setEmployeeData(data);
+    setTotalTips(tips);
+    triggerStepChange(3); // Smooth transition to Step 3
   };
 
-  // Restart the app (clear localStorage and reset state)
   const handleRestart = () => {
-    localStorage.clear(); // Clear all data in localStorage
-    setStep(1); // Reset to Step 1
-    setEmployeeData([]); // Reset employee data
-    setTotalHours(0); // Reset total hours
-    setTotalTips(0); // Reset total tips
+    setStep(1);
+    setEmployeeData([]);
+    setTotalHours(0);
+    setTotalTips(0);
+    localStorage.clear();
+    triggerStepChange(1); // Restart to Step 1 with animation
   };
 
-  // Return to Rounding step
   const handleReturnToRounding = () => {
-    setStep(2); // Go back to the rounding step
+    triggerStepChange(2); // Smooth transition back to Step 2
   };
 
   return (
-    <div id='app'>
+    <div id="app" className={`fade ${fade ? 'show' : ''}`}>
       <h1>Tip Calculator</h1>
 
-      {/* Show the Restart button on all steps */}
-      <button onClick={handleRestart} id="restartButton">Restart</button>
-
-      {step === 1 && <Hours onDone={handleDoneInHours} />}
+      {step === 1 && (
+        <Hours
+          onDone={handleDoneInHours}
+          onRestart={handleRestart}
+          initialData={employeeData}
+          initialTotalHours={totalHours}
+        />
+      )}
       {step === 2 && <Rounding employeeData={employeeData} onDone={handleDoneInRounding} />}
       {step === 3 && (
         <Results
