@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import './App.css';
-import hours from './hours.jsx';
+import Hours from './Hours.jsx';
 import Rounding from './Rounding.jsx';
 import Results from './Results.jsx';
 
@@ -10,67 +10,70 @@ function App() {
   const [totalHours, setTotalHours] = useState(0);
   const [totalTips, setTotalTips] = useState(0);
 
-  // Centralize data handling
+  // Load data from localStorage if it exists
   useEffect(() => {
-    const storedState = localStorage.getItem('appState');
-    if (storedState) {
-      const parsedState = JSON.parse(storedState);
-      setStep(parsedState.step || 1);
-      setEmployeeData(parsedState.employeeData || []);
-      setTotalHours(parsedState.totalHours || 0);
-      setTotalTips(parsedState.totalTips || 0);
+    const storedStep = localStorage.getItem('step');
+    const storedEmployeeData = localStorage.getItem('employeeData');
+    const storedTotalHours = localStorage.getItem('totalHours');
+    const storedTotalTips = localStorage.getItem('totalTips');
+
+    if (storedStep) {
+      setStep(Number(storedStep));
+    }
+    if (storedEmployeeData) {
+      setEmployeeData(JSON.parse(storedEmployeeData));
+    }
+    if (storedTotalHours) {
+      setTotalHours(Number(storedTotalHours));
+    }
+    if (storedTotalTips) {
+      setTotalTips(Number(storedTotalTips));
     }
   }, []);
 
+  // Save data to localStorage whenever relevant state changes
   useEffect(() => {
-    const appState = {
-      step,
-      employeeData,
-      totalHours,
-      totalTips,
-    };
-    localStorage.setItem('appState', JSON.stringify(appState));
+    localStorage.setItem('step', step);
+    localStorage.setItem('employeeData', JSON.stringify(employeeData));
+    localStorage.setItem('totalHours', totalHours);
+    localStorage.setItem('totalTips', totalTips);
   }, [step, employeeData, totalHours, totalTips]);
 
+  // Handle the "Done" button in Hours.jsx
   const handleDoneInHours = (data) => {
-    const hoursSum = data.reduce((sum, emp) => sum + emp.hoursWorked, 0);
     setEmployeeData(data);
-    setTotalHours(hoursSum);
-    setStep(2);
+    setStep(2); // Move to rounding step
   };
 
-  const handleDoneInRounding = (updatedEmployeeData) => {
-    const totalTipsSum = updatedEmployeeData.reduce((sum, emp) => sum + (emp.exactTips || 0), 0);
-    setEmployeeData(updatedEmployeeData);
-    setTotalTips(totalTipsSum);
-    setStep(3);
+  // Handle the "Done" button in Rounding.jsx
+  const handleDoneInRounding = (tips) => {
+    setTotalTips(tips); // Set total tips
+    setStep(3); // Move to results step
   };
 
+  // Restart the app (clear localStorage and reset state)
   const handleRestart = () => {
-    localStorage.removeItem('appState');
-    setStep(1);
-    setEmployeeData([]);
-    setTotalHours(0);
-    setTotalTips(0);
+    localStorage.clear(); // Clear all data in localStorage
+    setStep(1); // Reset to Step 1
+    setEmployeeData([]); // Reset employee data
+    setTotalHours(0); // Reset total hours
+    setTotalTips(0); // Reset total tips
   };
 
+  // Return to Rounding step
   const handleReturnToRounding = () => {
-    setStep(2);
+    setStep(2); // Go back to the rounding step
   };
 
   return (
-    <div id="app">
+    <div id='app'>
       <h1>Tip Calculator</h1>
+
+      {/* Show the Restart button on all steps */}
       <button onClick={handleRestart} id="restartButton">Restart</button>
 
-      {step === 1 && <hours onDone={handleDoneInHours} />}
-      {step === 2 && (
-        <Rounding
-          employeeData={employeeData}
-          totalTips={totalTips}
-          onDone={handleDoneInRounding}
-        />
-      )}
+      {step === 1 && <Hours onDone={handleDoneInHours} />}
+      {step === 2 && <Rounding employeeData={employeeData} onDone={handleDoneInRounding} />}
       {step === 3 && (
         <Results
           employeeData={employeeData}

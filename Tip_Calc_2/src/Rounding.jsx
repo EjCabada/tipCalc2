@@ -1,64 +1,77 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-function Rounding({ employeeData, totalTips, onDone }) {
-  const [inputTips, setInputTips] = useState(totalTips);
+function Rounding({ employeeData, onDone }) {
+  const [totalTips, setTotalTips] = useState(0);
+  const [roundingOption, setRoundingOption] = useState('');
+  const [step, setStep] = useState(1);  // Step 1: Enter total tips, Step 2: Ask for rounding
 
+  // Handle the total tips input
   const handleTipsChange = (event) => {
-    setInputTips(Number(event.target.value));
+    setTotalTips(Number(event.target.value));
   };
 
+  // Handle the rounding option selection
   const handleRoundingOption = (option) => {
-    if (employeeData.length === 0) {
-      alert("No employees available for rounding tips.");
-      return;
-    }
+    setRoundingOption(option);
+    setStep(2); // Move to the next step after selecting a rounding option
+  };
 
-    const tipsPerEmployee = inputTips / employeeData.length;
-    const updatedData = employeeData.map((emp) => {
-      let roundedTips;
-      switch (option) {
-        case 'up':
-          roundedTips = Math.ceil(tipsPerEmployee);
-          break;
-        case 'nearest':
-          roundedTips = Math.round(tipsPerEmployee);
-          break;
-        default:
-          roundedTips = tipsPerEmployee;
+  // Handle rounding calculations after selecting the rounding option
+  const applyRounding = () => {
+    const totalTipsPerEmployee = totalTips / employeeData.length;
+    const updatedData = employeeData.map(emp => {
+      let roundedTips = totalTipsPerEmployee;
+      if (roundingOption === 'up') {
+        roundedTips = Math.ceil(totalTipsPerEmployee);
+      } else if (roundingOption === 'nearest') {
+        roundedTips = Math.round(totalTipsPerEmployee);
       }
-
       return {
         ...emp,
-        roundedTips,
-        exactTips: tipsPerEmployee,
+        roundedTips: roundedTips,
+        exactTips: totalTipsPerEmployee
       };
     });
 
-    onDone(updatedData);
+    // Save original and rounded data in localStorage
+    localStorage.setItem('employeeDataOriginal', JSON.stringify(employeeData));
+    localStorage.setItem('employeeData', JSON.stringify(updatedData));
+
+    onDone(); // Call the done function to move to Step 3
   };
 
   return (
     <div>
-      <h2>Enter Total Tips for the Week</h2>
-      <input
-        type="number"
-        value={inputTips}
-        onChange={handleTipsChange}
-        placeholder="Enter total tips"
-      />
+      {step === 1 && (
+        <div>
+          <h2>Enter Total Tips for the Week</h2>
+          <input
+            type="number"
+            value={totalTips}
+            onChange={handleTipsChange}
+            placeholder="Enter total tips"
+          />
+          <button onClick={() => setStep(2)}>Next</button>
+        </div>
+      )}
 
-      <h2>Round Employee Tips?</h2>
-      <button onClick={() => handleRoundingOption('up')}>Round Up</button>
-      <button onClick={() => handleRoundingOption('nearest')}>Round Nearest Dollar</button>
-      <button onClick={() => handleRoundingOption('none')}>Don't Round</button>
+      {step === 2 && (
+        <div>
+          <h2>Round Employee Tips?</h2>
+          <button onClick={() => handleRoundingOption('up')}>Round Up</button>
+          <button onClick={() => handleRoundingOption('nearest')}>Round Nearest Dollar</button>
+          <button onClick={() => handleRoundingOption('none')}>Don't Round</button>
+        </div>
+      )}
 
-      <div>
-        <strong>Debug Info:</strong>
-        <p>Total Tips Entered: {inputTips}</p>
-        <p>Number of Employees: {employeeData.length}</p>
-      </div>
+      {/* After rounding option is selected, apply rounding */}
+      {roundingOption && (
+        <div>
+          <button onClick={applyRounding}>Apply Rounding</button>
+        </div>
+      )}
     </div>
   );
 }
 
-export default Rounding;
+export default Rounding;  

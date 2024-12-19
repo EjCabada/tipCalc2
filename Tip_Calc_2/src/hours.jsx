@@ -1,62 +1,74 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 
-function hours({ onDone }) {
-  const [employeeNumber, setEmployeeNumber] = useState(1);
+function Hours({ onDone }) {
+  const [employee, setEmployees] = useState(1);
   const [workedHours, setWorkedHours] = useState(0);
   const [employeeData, setEmployeeData] = useState([]);
+  const [totalHours, setTotalHours] = useState(0);
 
+  // Load data from localStorage if it exists
   useEffect(() => {
     const storedEmployeeData = localStorage.getItem('employeeData');
+    const storedTotalHours = localStorage.getItem('totalHours');
+    const storedEmployee = localStorage.getItem('employee');
+
     if (storedEmployeeData) {
       setEmployeeData(JSON.parse(storedEmployeeData));
     }
+    if (storedTotalHours) {
+      setTotalHours(Number(storedTotalHours));
+    }
+    if (storedEmployee) {
+      setEmployees(Number(storedEmployee));
+    }
   }, []);
+
+  // Save data to localStorage
+  useEffect(() => {
+    localStorage.setItem('employeeData', JSON.stringify(employeeData));
+    localStorage.setItem('totalHours', totalHours);
+    localStorage.setItem('employee', employee);
+  }, [employeeData, totalHours, employee]);
 
   const handleHoursChange = (event) => {
     setWorkedHours(Number(event.target.value));
   };
 
   const nextEmployee = () => {
-    if (workedHours <= 0) {
-      alert("Please enter valid hours for the employee.");
-      return;
-    }
-
-    const updatedData = [
-      ...employeeData,
-      { employeeNumber, hoursWorked: workedHours, roundedHours: null },
-    ];
-    setEmployeeData(updatedData);
+    // Save current employee data before moving to next employee
+    setEmployeeData((prevData) => [
+      ...prevData,
+      { employeeNumber: employee, hoursWorked: workedHours, roundedHours: null },
+    ]);
+    setTotalHours((prevTotal) => prevTotal + workedHours);
+    setEmployees((prevEmployee) => prevEmployee + 1);
     setWorkedHours(0);
-    setEmployeeNumber(employeeNumber + 1);
   };
 
   const prevEmployee = () => {
-    if (employeeNumber <= 1) return;
-
-    const lastEmployee = employeeData.pop();
-    setEmployeeData([...employeeData]);
-    setEmployeeNumber(employeeNumber - 1);
-    setWorkedHours(lastEmployee.hoursWorked);
+    if (employee > 1) {
+      setEmployees((prevEmployee) => prevEmployee - 1);
+      const removedEmployee = employeeData.pop();
+      setEmployeeData([...employeeData]);
+      setTotalHours((prevTotal) => prevTotal - removedEmployee.hoursWorked);
+      setWorkedHours(removedEmployee.hoursWorked);
+    }
   };
 
   const handleDone = () => {
-    if (workedHours > 0) {
-      const updatedData = [
-        ...employeeData,
-        { employeeNumber, hoursWorked: workedHours, roundedHours: null },
-      ];
-      setEmployeeData(updatedData);
-      onDone(updatedData);
-    } else {
-      onDone(employeeData);
-    }
+    // Save the last employee's data
+    setEmployeeData((prevData) => [
+      ...prevData,
+      { employeeNumber: employee, hoursWorked: workedHours, roundedHours: null },
+    ]);
+    setTotalHours((prevTotal) => prevTotal + workedHours);
+    onDone(employeeData); // Pass employee data to App.jsx
   };
 
   return (
     <div id="employeeVals">
-      <div id="employeeText">How many hours did employee {employeeNumber} work?</div>
+      <div id="employeeText">How many hours did employee {employee} work?</div>
       <input
         type="number"
         name="workedHours"
@@ -74,12 +86,10 @@ function hours({ onDone }) {
       </div>
 
       <div>
-        <strong>Debug Info:</strong>
-        <p>Worked Hours: {workedHours}</p>
-        <p>Total Employees Recorded: {employeeData.length}</p>
+        workedHours = {workedHours}, totalHours = {totalHours}, employee = {employee}
       </div>
     </div>
   );
 }
 
-export default hours;
+export default Hours;
