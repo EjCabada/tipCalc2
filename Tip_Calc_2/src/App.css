@@ -3,7 +3,7 @@
   --sbuxbrightgreen: #007549;
   --sbuxdarkgreen: #1E3932;
   --sbuxlightgreen:   #D4E9E2;
-  --sbuxcream: #e3e1dd;
+  --sbuxcream: #f2eadb;
 
   max-width: 1280px;
   margin: 0 auto;
@@ -13,7 +13,7 @@
 
 body {
   color: white;
-  background-color: var(--sbuxgreen);
+  background-color: var(--sbuxbrightgreen);
 }
 
 .card {
@@ -27,7 +27,12 @@ body {
 
 button {
   margin: .5em;
-  background-color: #907f4d;
+  background-color: #a7955f;
+  box-shadow: rgba(82, 82, 91, 0.397) 0px 7px 29px 0px;
+}
+
+button:active {
+  background-color: #897e5b;
 }
 
 #mainContainer {
@@ -166,4 +171,5 @@ input {
   background-color: var(--sbuxcream);
   color: black;
   font-weight: bold;
+  box-shadow: rgba(61, 61, 66, 0.385) 0px 7px 29px 0px;
 }

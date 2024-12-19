@@ -83,6 +83,7 @@ function Rounding({ employeeData, onDone }) {
             // value={totalTips}
             onChange={handleTipsChange}
             //placeholder="Enter total tips"
+            min="0"
           />
           <button onClick={proceedToHoursRounding}>Next</button>
         </div>
