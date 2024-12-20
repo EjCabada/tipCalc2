@@ -53,8 +53,10 @@ function App() {
   };
 
   return (
+
+    <div id="mainContainer">
     <div id="app" className={`fade ${fade ? 'show' : ''}`}>
-      <h1>Tip Calculator</h1>
+      <h1>TIP CALCULATOR</h1>
 
       {step === 1 && (
         <Hours
@@ -74,6 +76,7 @@ function App() {
           onReturnToRounding={handleReturnToRounding}
         />
       )}
+    </div>
     </div>
   );
 }

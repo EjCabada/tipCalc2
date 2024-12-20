@@ -1,3 +1,295 @@
+@font-face {
+  font-family: 'Pike';
+  src: url('../Fonts/Pike-Regular.woff2') format('woff2'),
+       url('../Fonts/Pike-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Pike';
+  src: url('../Fonts/Pike-Bold.woff2') format('woff2'),
+       url('../Fonts/Pike-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Pike';
+  src: url('../Fonts/Pike-Light.woff2') format('woff2'),
+       url('../Fonts/Pike-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+}
+
+/* Lander Grande */
+@font-face {
+  font-family: 'LanderGrande';
+  src: url('../Fonts/LanderGrande-Black.woff2') format('woff2'),
+       url('../Fonts/LanderGrande-Black.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LanderGrande';
+  src: url('../Fonts/LanderGrande-BlackItalic.woff2') format('woff2'),
+       url('../Fonts/LanderGrande-BlackItalic.woff') format('woff');
+  font-weight: 900;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'LanderGrande';
+  src: url('../Fonts/LanderGrande-Bold.woff2') format('woff2'),
+       url('../Fonts/LanderGrande-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LanderGrande';
+  src: url('../Fonts/LanderGrande-BoldItalic.woff2') format('woff2'),
+       url('../Fonts/LanderGrande-BoldItalic.woff') format('woff');
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'LanderGrande';
+  src: url('../Fonts/LanderGrande-Book.woff2') format('woff2'),
+       url('../Fonts/LanderGrande-Book.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LanderGrande';
+  src: url('../Fonts/LanderGrande-BookItalic.woff2') format('woff2'),
+       url('../Fonts/LanderGrande-BookItalic.woff') format('woff');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'LanderGrande';
+  src: url('../Fonts/LanderGrande-Light.woff2') format('woff2'),
+       url('../Fonts/LanderGrande-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LanderGrande';
+  src: url('../Fonts/LanderGrande-LightItalic.woff2') format('woff2'),
+       url('../Fonts/LanderGrande-LightItalic.woff') format('woff');
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'LanderGrande';
+  src: url('../Fonts/LanderGrande-Regular.woff2') format('woff2'),
+       url('../Fonts/LanderGrande-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LanderGrande';
+  src: url('../Fonts/LanderGrande-SemiBold.woff2') format('woff2'),
+       url('../Fonts/LanderGrande-SemiBold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LanderGrande';
+  src: url('../Fonts/LanderGrande-SemiBoldItalic.woff2') format('woff2'),
+       url('../Fonts/LanderGrande-SemiBoldItalic.woff') format('woff');
+  font-weight: 600;
+  font-style: italic;
+}
+
+/* Lander Short */
+@font-face {
+  font-family: 'LanderShort';
+  src: url('../Fonts/LanderShort-Bold.woff2') format('woff2'),
+       url('../Fonts/LanderShort-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LanderShort';
+  src: url('../Fonts/LanderShort-BoldItalic.woff2') format('woff2'),
+       url('../Fonts/LanderShort-BoldItalic.woff') format('woff');
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'LanderShort';
+  src: url('../Fonts/LanderShort-Light.woff2') format('woff2'),
+       url('../Fonts/LanderShort-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LanderShort';
+  src: url('../Fonts/LanderShort-LightItalic.woff2') format('woff2'),
+       url('../Fonts/LanderShort/LanderShort-LightItalic.woff') format('woff');
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'LanderShort';
+  src: url('../Fonts/LanderShort-Regular.woff2') format('woff2'),
+       url('../Fonts/LanderShort/LanderShort-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LanderShort';
+  src: url('../Fonts/LanderShort-SemiBold.woff2') format('woff2'),
+       url('../Fonts/LanderShort/LanderShort-SemiBold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LanderShort';
+  src: url('../Fonts/LanderShort/LanderShort-SemiBoldItalic.woff2') format('woff2'),
+       url('../Fonts/LanderShort/LanderShort-SemiBoldItalic.woff') format('woff');
+  font-weight: 600;
+  font-style: italic;
+}
+
+/* Lander Tall */
+@font-face {
+  font-family: 'LanderTall';
+  src: url('../Fonts/LanderTall/LanderTall-Black.woff2') format('woff2'),
+       url('../Fonts/LanderTall/LanderTall-Black.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LanderTall';
+  src: url('../Fonts/LanderTall/LanderTall-Italic.woff2') format('woff2'),
+       url('../Fonts/LanderTall/LanderTall-Italic.woff') format('woff');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'LanderTall';
+  src: url('../Fonts/LanderTall/LanderTall-Light.woff2') format('woff2'),
+       url('../Fonts/LanderTall/LanderTall-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LanderTall';
+  src: url('../Fonts/LanderTall/LanderTall-Regular.woff2') format('woff2'),
+       url('../Fonts/LanderTall/LanderTall-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LanderTall';
+  src: url('../Fonts/LanderTall/LanderTall-SemiBold.woff2') format('woff2'),
+       url('../Fonts/LanderTall/LanderTall-SemiBold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+}
+
+/* SoDo Sans */
+@font-face {
+  font-family: 'SoDo Sans';
+  src: url('../Fonts/SoDoSans-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SoDo Sans';
+  src: url('../Fonts/SoDoSans-Italic.woff2') format('woff2');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SoDo Sans';
+  src: url('../Fonts/SoDoSans-Bold.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SoDo Sans';
+  src: url('../Fonts/SoDoSans-BoldItalic.woff2') format('woff2');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SoDo Sans';
+  src: url('../Fonts/SoDoSans-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SoDo Sans';
+  src: url('../Fonts/SoDoSans-LightItalic.woff2') format('woff2');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SoDo Sans';
+  src: url('../Fonts/SoDoSans-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SoDo Sans';
+  src: url('../Fonts/SoDoSans-SemiBoldItalic.woff2') format('woff2');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SoDo Sans';
+  src: url('../Fonts/SoDoSans-Thin.woff2') format('woff2');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SoDo Sans';
+  src: url('../Fonts/SoDoSans-ThinItalic.woff2') format('woff2');
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+
 #root {
   --sbuxgreen: #016241;
   --sbuxbrightgreen: #007549;
@@ -9,11 +301,18 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  color: black;
+
+  font-family: 'SoDo Sans' ,Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 body {
   color: white;
-  background-color: var(--sbuxbrightgreen);
+  background: rgb(1,98,65);
+  background: -moz-linear-gradient(180deg, rgba(1,98,65,1) 50%, rgba(0,117,73,1) 100%);
+  background: -webkit-linear-gradient(180deg, rgba(1,98,65,1) 50%, rgba(0,117,73,1) 100%);
+  background: linear-gradient(180deg, rgba(1,98,65,1) 50%, rgba(0,117,73,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#016241",endColorstr="#007549",GradientType=1);
 }
 
 .card {
@@ -27,11 +326,13 @@ body {
 
 button {
   border-style: none;
-  padding: .8em;
+  padding: .5em .8em;
   margin: 1em;
-  border-radius: 7px;
+  border-radius: 8px;
   background-color: #a7955f;
-  box-shadow: rgba(82, 82, 91, 0.397) 0px 7px 29px 0px;
+  box-shadow: rgba(82, 82, 91, 0.297) 0px 7px 29px 0px;
+  font-weight: normal;
+  font-size: 1em;
   color: white;
 }
 
@@ -50,6 +351,8 @@ button:active {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  box-shadow: rgba(52, 52, 54, 0.665) 0px 7px 29px 0px;
+  padding-bottom: 3em;
 }
 
 #innerContainer{
@@ -59,12 +362,18 @@ button:active {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  padding-bottom: 3em;
 }
 
 h1 {
   text-align: center;
   font-size: 5em;
-  font-weight: lighter;
+  font-family: 'Pike';
+  letter-spacing: .2em;
+  font-weight: 600;
+  text-align: left;
+  padding: 0em 1em;
+  color: black;
 }
 
 .questioneer {
@@ -172,8 +481,9 @@ input {
   border-style: none;
   border-radius: 5px;
   padding: 1em;
+  margin: 1em;
   background-color: var(--sbuxcream);
   color: black;
   font-weight: bold;
-  box-shadow: rgba(61, 61, 66, 0.385) 0px 7px 29px 0px;
+  box-shadow: rgba(70, 70, 75, 0.285) 0px 7px 29px 0px;
 }
