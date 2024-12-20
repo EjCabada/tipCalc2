@@ -103,6 +103,7 @@ function Hours({ onDone, onRestart, initialData = [], initialTotalHours = 0 }) {
       <input
         type="number"
         name="workedHours"
+        inputMode="decimal"
         id="hoursInput"
         min="0"
         value={workedHours || ''} // Set to an empty string when workedHours is null

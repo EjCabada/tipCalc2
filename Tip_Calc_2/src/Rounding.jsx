@@ -80,6 +80,7 @@ function Rounding({ employeeData, onDone }) {
           <p>Enter Total Tips for the Week</p>
           <input
             type="number"
+            inputMode="decimal"
             // value={totalTips}
             onChange={handleTipsChange}
             //placeholder="Enter total tips"
