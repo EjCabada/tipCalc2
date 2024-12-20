@@ -1,7 +1,11 @@
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+
 import './App.css';
 
 function Hours({ onDone, onRestart, initialData = [], initialTotalHours = 0 }) {
+
+  const inputRef = useRef(null);
   const [employee, setEmployees] = useState(initialData.length + 1);
   const [workedHours, setWorkedHours] = useState(null); // Start with null to make the input empty
   const [employeeData, setEmployeeData] = useState(initialData);
@@ -58,6 +62,11 @@ function Hours({ onDone, onRestart, initialData = [], initialTotalHours = 0 }) {
       }
       setEmployees(employee + 1);
       setWorkedHours(null); // Reset workedHours after moving to next employee
+
+          // Focus the input element
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
     });
   };
 
@@ -109,6 +118,7 @@ function Hours({ onDone, onRestart, initialData = [], initialTotalHours = 0 }) {
         value={workedHours || ''} // Set to an empty string when workedHours is null
         placeholder=''
         onChange={handleHoursChange}
+        ref={inputRef} 
       />
       <div className="buttonArea">
         <button onClick={prevEmployee} id="back">Back</button>
