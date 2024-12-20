@@ -77,7 +77,7 @@ function Rounding({ employeeData, onDone }) {
     <div className={`fade ${fade ? 'show' : ''}`}>
       {step === 1 && (
         <div>
-          <h2>Enter Total Tips for the Week</h2>
+          <p>Enter Total Tips for the Week</p>
           <input
             type="number"
             // value={totalTips}
@@ -91,7 +91,7 @@ function Rounding({ employeeData, onDone }) {
 
       {step === 2 && (
         <div>
-          <h2>Round Employee Hours (before multiplying tips)?</h2>
+          <p>Round Employee Hours (before multiplying tips)?</p>
           <button onClick={() => applyHoursRounding('up')}>Round Up</button>
           <button onClick={() => applyHoursRounding('down')}>Round Down</button>
           <button onClick={() => applyHoursRounding('nearest')}>Round to Nearest</button>
@@ -101,7 +101,7 @@ function Rounding({ employeeData, onDone }) {
 
       {step === 3 && (
         <div>
-          <h2>Round Employee Tips (after multiplying by tips)?</h2>
+          <p>Round Employee Tips (after multiplying by tips)?</p>
           <button onClick={() => applyTipsRounding('up')}>Round Up</button>
           <button onClick={() => applyTipsRounding('nearest')}>Round to Nearest</button>
           <button onClick={() => applyTipsRounding('exact')}>Don't Round</button>

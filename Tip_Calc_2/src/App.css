@@ -308,11 +308,11 @@
 
 body {
   color: white;
-  background: rgb(1,98,65);
-  background: -moz-linear-gradient(180deg, rgba(1,98,65,1) 50%, rgba(0,117,73,1) 100%);
-  background: -webkit-linear-gradient(180deg, rgba(1,98,65,1) 50%, rgba(0,117,73,1) 100%);
-  background: linear-gradient(180deg, rgba(1,98,65,1) 50%, rgba(0,117,73,1) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#016241",endColorstr="#007549",GradientType=1);
+  background: rgb(0,88,58);
+  background: -moz-linear-gradient(141deg, rgba(0,88,58,1) 48%, rgba(0,117,73,1) 95%);
+  background: -webkit-linear-gradient(141deg, rgba(0,88,58,1) 48%, rgba(0,117,73,1) 95%);
+  background: linear-gradient(141deg, rgba(0,88,58,1) 48%, rgba(0,117,73,1) 95%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00583a",endColorstr="#007549",GradientType=1);
 }
 
 .card {
@@ -351,17 +351,7 @@ button:active {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  box-shadow: rgba(52, 52, 54, 0.665) 0px 7px 29px 0px;
-  padding-bottom: 3em;
-}
-
-#innerContainer{
-  width: 95%;
-  height: 95%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  box-shadow: rgba(0, 0, 0, 0.349) 0px 32px 70px 10px;
   padding-bottom: 3em;
 }
 
