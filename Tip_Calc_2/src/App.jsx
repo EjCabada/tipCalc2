@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import './App.css';
-import Hours from './Hours.jsx';
+import Hours from './hours.jsx';
 import Rounding from './Rounding.jsx';
 import Results from './Results.jsx';
 

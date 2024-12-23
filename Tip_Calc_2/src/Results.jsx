@@ -16,20 +16,21 @@ function Results({ employeeData, totalHours, totalTips, onRestart, onReturnToRou
 
   return (
     <div>
-      <h2>Results</h2>
-      <div>
-        <h3>Stats</h3>
+      <button onClick={onRestart}>Restart</button>
+      <button onClick={onReturnToRounding}>Return to Rounding</button>
+      <div className='statsBox'>
+        <h3>Overall Stats</h3>
         <p><strong>Total Hours Worked (Rounded):</strong> {roundedTotalHours.toFixed(4)}</p>
         <p><strong>Total Exact Tips:</strong> ${totalTips.toFixed(2)}</p>
         <p><strong>Total Tips Earned after Rounding:</strong> ${roundedTotalTips.toFixed(2)}</p>
         <p><strong>Tips per Hr:</strong> ${(roundedTotalHours ? totalTips / roundedTotalHours : 0).toFixed(4)}</p>
       </div>
 
-      <h3>Employee Breakdown</h3>
+      <h3>Partner Tips Breakdown</h3>
       <table>
         <thead>
           <tr>
-            <th>Employee #</th>
+            <th>Partner #</th>
             <th>Hrs Worked</th>
             <th>Exact Tips</th>
             <th>Rounded Tips</th>
@@ -46,9 +47,6 @@ function Results({ employeeData, totalHours, totalTips, onRestart, onReturnToRou
           ))}
         </tbody>
       </table>
-
-      <button onClick={onRestart}>Restart</button>
-      <button onClick={onReturnToRounding}>Return to Rounding</button>
     </div>
   );
 }

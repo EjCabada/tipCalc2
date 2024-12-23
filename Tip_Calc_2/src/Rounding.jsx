@@ -2,33 +2,24 @@ import React, { useState, useEffect } from 'react';
 
 function Rounding({ employeeData, onDone }) {
   const [totalTips, setTotalTips] = useState(0);
-  const [step, setStep] = useState(1); // Step 1: Enter total tips, Step 2: Rounding options for hours, Step 3: Rounding options for tips
-  const [fade, setFade] = useState(true); // Initially true for fade-in
+  const [step, setStep] = useState(1); // Step 1: Hours rounding, Step 2: Total tips, Step 3: Tips rounding
   const [roundingOption, setRoundingOption] = useState('exact');
-
-  const triggerStepChange = (newStep) => {
-    setFade(false); // Fade out
-    setTimeout(() => {
-      setStep(newStep);
-      setFade(true); // Fade in after step change
-    }, 300); // Match this timeout with the fade-out duration in CSS
-  };
 
   const handleTipsChange = (event) => {
     setTotalTips(Number(event.target.value));
   };
 
-  const proceedToHoursRounding = () => {
+  const applyHoursRounding = (option) => {
+    setRoundingOption(option);
+    setStep(2); // Proceed to Step 2
+  };
+
+  const proceedToTipsRounding = () => {
     if (totalTips <= 0) {
       alert('Please enter a valid total tips amount greater than 0.');
       return;
     }
-    triggerStepChange(2); // Trigger animation and transition to Step 2
-  };
-
-  const applyHoursRounding = (option) => {
-    setRoundingOption(option);
-    triggerStepChange(3); // Trigger animation and transition to Step 3
+    setStep(3); // Proceed to Step 3
   };
 
   const applyTipsRounding = (tipRoundingOption) => {
@@ -74,25 +65,26 @@ function Rounding({ employeeData, onDone }) {
   };
 
   return (
-    <div className={`fade ${fade ? 'show' : ''}`}>
-      {step === 1 && (
-        <div>
-          <p>Enter Total Tips for the Week</p>
-          <input
-            type="number"
-            inputMode="decimal"
-            // value={totalTips}
-            onChange={handleTipsChange}
-            //placeholder="Enter total tips"
-            min="0"
-          />
-          <button onClick={proceedToHoursRounding}>Next</button>
-        </div>
-      )}
+    <div>
+      <div className="status">
+      <div className='progress-name'>
+      <div className={`step2 ${step >= 1 ? 'active2' : 'nonActive'}`}>Partner Hours Worked</div>
+      <div className='step2'>x</div>
+        <div className={`step2 ${step >= 2 ? 'active2' : 'nonActive'}`}>Tips per Hour</div>
+        <div className='step2'>=</div>
+        <div className={`step2 ${step >= 3 ? 'active2' : 'nonActive'}`}>Final Tips Earned</div> 
+      </div>
+      <div className="progress-bar">
+        <div className={`step ${step >= 1 ? 'active' : ''}`}></div>
+        <div className={`step ${step >= 2 ? 'active' : ''}`}></div>
+        <div className={`step ${step >= 3 ? 'active' : ''}`}></div> 
+        <div className="progress" style={{ width: `${(step / 3) * 100}%` }}></div>
+      </div>
+      </div>
 
-      {step === 2 && (
-        <div>
-          <p>Round Employee Hours (before multiplying tips)?</p>
+      {step === 1 && (
+        <div className={`fade ${step === 1 ? 'show' : ''}`}>
+          <p>Would you like to round every Partners hours worked (before multiplying by hourly tips)?</p>
           <button onClick={() => applyHoursRounding('up')}>Round Up</button>
           <button onClick={() => applyHoursRounding('down')}>Round Down</button>
           <button onClick={() => applyHoursRounding('nearest')}>Round to Nearest</button>
@@ -100,9 +92,25 @@ function Rounding({ employeeData, onDone }) {
         </div>
       )}
 
+      {step === 2 && (
+        <div  className={`fade ${step === 2 ? 'show' : ''}`}>
+          <p>Enter <strong>exact</strong> total tips for the Week</p>
+          <div className="column">
+          <input
+            type="number"
+            inputMode="decimal"
+            onChange={handleTipsChange}
+            min="0"
+          />
+          <button onClick={proceedToTipsRounding}>Next</button>
+          </div>
+
+        </div>
+      )}
+
       {step === 3 && (
-        <div>
-          <p>Round Employee Tips (after multiplying by tips)?</p>
+        <div  className={`fade ${step === 3? 'show' : ''}`}>
+          <p>Round final Partner earned tips (after multiplying by hourly tips earned)?</p>
           <button onClick={() => applyTipsRounding('up')}>Round Up</button>
           <button onClick={() => applyTipsRounding('nearest')}>Round to Nearest</button>
           <button onClick={() => applyTipsRounding('exact')}>Don't Round</button>

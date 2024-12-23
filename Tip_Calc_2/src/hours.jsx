@@ -108,7 +108,8 @@ function Hours({ onDone, onRestart, initialData = [], initialTotalHours = 0 }) {
 
   return (
     <div id="employeeVals" className={`fade ${fade ? 'show' : ''}`}>
-      <div id="employeeText">How many hours did employee {employee} work?</div>
+      <div id="employeeText">How many hours did Partner <strong>
+        {employee}</strong> work?</div>
       <input
         type="number"
         name="workedHours"
